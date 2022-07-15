@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             String contactName = cursor.getString(cursor.getColumnIndexOrThrow(ContactDB.ContactEntry.COLUMN_NAME_CONTACT_NAME));
             String contactNumber = cursor.getString(cursor.getColumnIndexOrThrow(ContactDB.ContactEntry.COLUMN_NAME_NUMBER));
 
-            contacts.add(new ContactModel(contactName, contactNumber));
+            contacts.add(new ContactModel(id, contactName, contactNumber));
         }
 
         contactListAdapter =

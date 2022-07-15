@@ -50,9 +50,9 @@ public class AddContactActivity extends AppCompatActivity {
         values.put(ContactDB.ContactEntry.COLUMN_NAME_CONTACT_NAME, name);
         values.put(ContactDB.ContactEntry.COLUMN_NAME_NUMBER, number);
 
-        db.insert(ContactDB.ContactEntry.TABLE_NAME, null, values);
+        long id = db.insert(ContactDB.ContactEntry.TABLE_NAME, null, values);
 
-        MainActivity.contacts.add(new ContactModel(name, number));
+        MainActivity.contacts.add(new ContactModel(id, name, number));
         Toast.makeText(this, "Contact saved successfully", Toast.LENGTH_SHORT).show();
         finish();
     }
