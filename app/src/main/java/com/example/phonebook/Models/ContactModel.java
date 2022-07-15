@@ -5,10 +5,8 @@ public class ContactModel {
     private long id;
     private String contactName, contactNumber;
 
-    public ContactModel() {
-    }
-
     public ContactModel(long id, String contactName, String contactNumber) {
+        this.id = id;
         this.contactName = contactName;
         this.contactNumber = contactNumber;
     }
