@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.phonebook.Database.ContactDB;
 import com.example.phonebook.Helpers.DBHelper;
+import com.example.phonebook.Models.ContactModel;
 
 public class AddContactActivity extends AppCompatActivity {
 
@@ -51,8 +52,8 @@ public class AddContactActivity extends AppCompatActivity {
 
         db.insert(ContactDB.ContactEntry.TABLE_NAME, null, values);
 
+        MainActivity.contacts.add(new ContactModel(name, number));
         Toast.makeText(this, "Contact saved successfully", Toast.LENGTH_SHORT).show();
-
         finish();
     }
 }
