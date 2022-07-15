@@ -1,12 +1,14 @@
 package com.example.phonebook.Helpers;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
 import com.example.phonebook.Database.ContactDB;
+import com.example.phonebook.Models.ContactModel;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -40,5 +42,34 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
+    }
+
+    public ContactModel getContactById(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = {
+                ContactDB.ContactEntry._ID,
+                ContactDB.ContactEntry.COLUMN_NAME_CONTACT_NAME,
+                ContactDB.ContactEntry.COLUMN_NAME_NUMBER
+        };
+
+        String selection = ContactDB.ContactEntry._ID + " = ?";
+        String[] selectionArgs = {id + ""};
+
+        Cursor cursor = db.query(
+                ContactDB.ContactEntry.TABLE_NAME,   // The table to query
+                projection,             // The columns to return
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                null               // The sort order
+        );
+
+        cursor.moveToFirst();
+
+        String name = cursor.getString(cursor.getColumnIndexOrThrow(ContactDB.ContactEntry.COLUMN_NAME_CONTACT_NAME));
+        String number = cursor.getString(cursor.getColumnIndexOrThrow(ContactDB.ContactEntry.COLUMN_NAME_NUMBER));
+        cursor.close();
+        return new ContactModel(id, name, number);
     }
 }

@@ -50,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void addContact(View v) {
-        startActivity(new Intent(this, AddContactActivity.class));
+        Intent intent = new Intent(MainActivity.this, AddContactActivity.class);
+        intent.putExtra("contactId", (long) 0);
+        startActivity(intent);
     }
 
     void getContacts() {
